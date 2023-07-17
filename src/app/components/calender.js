@@ -1,4 +1,5 @@
 import { clsx } from 'clsx'
+import { v4 as uuidv4 } from 'uuid'
 
 const data = [
     {
@@ -17,15 +18,19 @@ const Calender = ({ year }) => {
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
     return (
-        <div 
-            className="min-h-[800px] grid grid-cols-32 gap-[1px] w-5/6 border border-slate-400"
-        >
+        <div className="min-h-[800px] grid grid-cols-32 gap-[1px] w-5/6 border border-slate-400">
             {arrBack.map((d, i)=> {
                 // Map over days from 0 - 383
                 // Month as number 1 - 12
                 const monthAsNum = Math.floor(( i/32 )) + 1 
                 const date = new Date(year, monthAsNum - 1, i % 32)
-                if(datesAreEqual(date, data[0].startDate)) console.log(date)
+
+
+                const appointments = data.filter(d => datesAreEqual(d.startDate, date))
+                if (appointments.length != 0) {
+                    console.log(appointments)
+                }
+
 
                 // If multiple of 32 then its a month name otherwise number of
                 // month if neither then don't print as not valid date
@@ -42,13 +47,17 @@ const Calender = ({ year }) => {
 
                 return (
                     <>
-                        {month ? <Month month={month}/> :
-                        <Day 
-                            date={dayOfMonth ? date : null}
-                            isWeekend={isWeekend}
-                            isToday={isToday}
-                            dayOfMonth={dayOfMonth} 
-                        />
+                        {month ? <Month 
+                            key={uuidv4()}
+                            month={month}
+                        /> :
+                            <Day 
+                                key={uuidv4()}
+                                date={dayOfMonth ? date : null}
+                                isWeekend={isWeekend}
+                                isToday={isToday}
+                                dayOfMonth={dayOfMonth} 
+                            />
                         }
                     </>
                 )
@@ -84,6 +93,7 @@ const Day = ({date, dayOfMonth, isWeekend, isToday}) => {
                     isToday && "bg-yellow-200",
                     dayOfMonth && "hover:cursor-pointer hover:bg-opacity-50"
             )}
+            //is null if not a date
             onClick={() => date && alert(date)}
         >
             {dayOfMonth}
