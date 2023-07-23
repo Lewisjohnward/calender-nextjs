@@ -49,6 +49,24 @@ const data = [
         where: ""
     },
     {
+        title: "Jakes bday",
+        description: "",
+        startDate: new Date("2023, 09, 25"),
+        color: "red",
+        length: 1,
+        who: "",
+        where: ""
+    },
+    {
+        title: "Annual leave",
+        description: "",
+        startDate: new Date("2023, 09, 25"),
+        color: "#eb34d8",
+        length: 4,
+        who: "",
+        where: ""
+    },
+    {
         title: "Ems wedding",
         description: "31st birthday",
         startDate: new Date("2023, 09, 28"),
@@ -135,7 +153,7 @@ const Day = ({date, dayOfMonth, isWeekend, isToday, appointments}) => {
         <div 
             className={
                 clsx(
-                "flex flex-col items-center gap-[1px] text-stone-500/80 text-xs truncate",
+                "flex flex-col items-center gap-[1px] text-stone-500/60 text-xs truncate",
                     isWeekend && "bg-blue-100",
                     dayOfMonth && !isWeekend && "bg-white",
                     isToday && "bg-yellow-200",
@@ -150,6 +168,7 @@ const Day = ({date, dayOfMonth, isWeekend, isToday, appointments}) => {
                         return (
                             <Appointment 
                                 key={uuidv4()}
+                                displayText={date.toDateString() === appointment.startDate.toDateString()}
                                 appointment={appointment}
                             />
                         )
@@ -159,13 +178,13 @@ const Day = ({date, dayOfMonth, isWeekend, isToday, appointments}) => {
     )
 }
 
-const Appointment = ({appointment}) => {
+const Appointment = ({appointment, displayText}) => {
     return (
         <div
-            className={clsx("text-white w-full", appointment.length == 1 && "rounded-full pl-1")}
+            className={clsx("flex items-center text-white w-full h-[30px]")}
             style={{backgroundColor: appointment.color}}
         >
-            {appointment.title}
+            {displayText && appointment.title}
         </div>
     )
 }

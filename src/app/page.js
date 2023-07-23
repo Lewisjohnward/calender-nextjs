@@ -49,6 +49,7 @@ const Header = ({scrolled}) => {
                     <li className="hover:underline"><a href="#">FEATURES</a></li>
                     <li className="hover:underline"><a href="#">PRICING</a></li>
                     <li className="hover:underline"><a href="#">FAQS</a></li>
+                    <li className="hover:underline"><a href="/login">login</a></li>
                 </ul>
                 <a href="/calender">
                     <div
