@@ -89,9 +89,7 @@ const Calender = ({ year }) => {
                 const monthAsNum = Math.floor(( i/32 )) + 1 
                 const date = new Date(year, monthAsNum - 1, i % 32)
 
-
                 const appointments = data.filter(d => datesAreWithinRange(date, d.startDate, d.length))
-
 
                 // If multiple of 32 then its a month name otherwise number of
                 // month if neither then don't print as not valid date
@@ -181,7 +179,7 @@ const Day = ({date, dayOfMonth, isWeekend, isToday, appointments}) => {
 const Appointment = ({appointment, displayText}) => {
     return (
         <div
-            className={clsx("flex items-center text-white w-full h-[30px]")}
+            className={clsx("flex items-center text-white w-full h-[30px] font-semibold")}
             style={{backgroundColor: appointment.color}}
         >
             {displayText && appointment.title}
